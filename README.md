@@ -12,3 +12,8 @@ Participantes:
 | Tiago M. T. Paciência  | 2025105692 |
 
 ## Descrição do Projeto:
+Elaboração de um website para a empresa fictícia GameHaven, uma biblioteca de jogos e terceiro espaço social que fornece serviços de:
+- Compra e aluguer de jogos.
+- Compra, aluguer e reparação de consolas.
+- Eventos temáticos.
+- Entretenimento in-house com acesso a bar.
