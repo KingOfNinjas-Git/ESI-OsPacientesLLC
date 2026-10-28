@@ -28,6 +28,6 @@ O _website_ será relevante a:
 
 
 ## Arquitetura de Referência ##
-
+https://www.figma.com/design/sVD3Yw88PjGL4T1oYGHNZh/Game-Haven?node-id=0-1&t=14KiJfYgbQX8JeHl-1
 
 ## Restrições do Produto ##
