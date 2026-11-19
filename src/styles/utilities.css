@@ -1,0 +1,80 @@
+/*
+ * FICHEIRO: utilities.css
+ * CLASSES PRÓPRIAS (além das que o Tailwind já traz).
+ *
+ *   chamfer    cantos cortados, como numa interface de jogo (botões, separadores)
+ *   cut-tr     corta só o canto superior direito (cartões de produto, blocos)
+ *   starfield  céu estrelado discreto para fundos escuros
+ *   glass      superfície de vidro fosco (desfoque + borda fina), para painéis sobre fundos escuros
+ *
+ * Usam-se como qualquer classe do Tailwind: <div className="chamfer [--ch-fill:var(--brand-900)]">
+ */
+
+/*
+ * Cantos chanfrados (cortados em diagonal), como numa interface de jogo.
+ * O recorte fica nos pseudo-elementos (linha + preenchimento), por isso o
+ * elemento em si não é recortado e o contorno de foco continua visível.
+ * Variáveis que podes mudar em cada botão:
+ *   --ch-fill: cor de fundo   --ch-line: cor da linha   --cut: tamanho do corte
+ */
+@utility chamfer {
+  position: relative;
+  isolation: isolate;
+  --c: var(--cut, 8px);
+  /* Os dois "fundos falsos" (::before = cor, ::after = linha) ficam atrás do conteúdo. */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    transition: background-color 240ms var(--ease-apple);
+  }
+  /* Brilho suave que acompanha o recorte quando se passa o rato. */
+  transition: filter 300ms var(--ease-apple);
+  &:hover {
+    filter: drop-shadow(0 0 14px rgb(107 60 240 / 0.38));
+  }
+  /* O preenchimento: um retângulo com dois cantos cortados (em cima à esquerda e em baixo à direita). */
+  &::before {
+    background: var(--ch-fill, transparent);
+    clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+  }
+  /* A linha fininha de 1px à volta: só o anel entre o contorno de fora e o de dentro. */
+  &::after {
+    background: var(--ch-line, transparent);
+    clip-path: polygon(
+      evenodd,
+      var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c), var(--c) 0,
+      calc(var(--c) + 0.42px) 1px, calc(100% - 1px) 1px, calc(100% - 1px) calc(100% - var(--c) - 0.42px),
+      calc(100% - var(--c) - 0.42px) calc(100% - 1px), 1px calc(100% - 1px), 1px calc(var(--c) + 0.42px), calc(var(--c) + 0.42px) 1px
+    );
+  }
+}
+
+/* Recorte só no canto superior direito — o "canto de cartucho" dos cartões. */
+@utility cut-tr {
+  clip-path: polygon(0 0, calc(100% - var(--cut, 14px)) 0, 100% var(--cut, 14px), 100% 100%, 0 100%);
+}
+
+/* Céu estrelado discreto para as áreas escuras: vários pontinhos brancos em posições e tamanhos diferentes. */
+@utility starfield {
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, rgb(255 255 255 / 55%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 31% 71%, rgb(255 255 255 / 35%) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 47% 18%, rgb(255 255 255 / 45%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 84%, rgb(255 255 255 / 30%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 69% 35%, rgb(255 255 255 / 40%) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 83% 62%, rgb(255 255 255 / 35%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 92% 14%, rgb(255 255 255 / 50%) 50%, transparent 51%),
+    radial-gradient(1px 1px at 6% 88%, rgb(255 255 255 / 30%) 50%, transparent 51%);
+}
+
+/* Vidro fosco: fundo translúcido com desfoque, como nos painéis do macOS/iOS. */
+@utility glass {
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+}
