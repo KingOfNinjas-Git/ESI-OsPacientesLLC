@@ -1,0 +1,6 @@
+{
+  // Usar a versão do TypeScript do projeto (node_modules) em vez da que vem com o VS Code,
+  // para o editor mostrar os mesmos erros que `npm run typecheck`.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

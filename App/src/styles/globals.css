@@ -1,0 +1,83 @@
+/*
+ * FICHEIRO: globals.css
+ * O PONTO DE ENTRADA DOS ESTILOS (é importado em app/layout.tsx).
+ *
+ * Este ficheiro junta os outros e define os estilos base do site todo:
+ *   theme.css       cores e tokens (A PALETA — se quiseres mudar cores, é lá)
+ *   utilities.css   classes próprias: chamfer, cut-tr, starfield
+ *   animations.css  animações (planeta, anel de carregamento)
+ *
+ * Fontes: Chakra Petch (títulos, botões, preços → classe `font-display`) e
+ * Onest (texto corrido → `font-sans`), carregadas em app/layout.tsx.
+ */
+
+/* Importa o Tailwind, as animações de apoio, o shadcn e os nossos ficheiros de estilo. */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./theme.css";
+@import "./utilities.css";
+@import "./animations.css";
+
+/* Define o que quer dizer "modo escuro" para o Tailwind: tudo dentro de um elemento com a classe .dark. */
+@custom-variant dark (&:is(.dark *));
+
+/* Estilos base aplicados a todos os elementos do site. */
+@layer base {
+  /* Em TODOS os elementos: a cor das bordas e dos contornos de foco vem do tema. */
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Brilho ambiente: duas manchas violeta muito suaves, fixas, por trás de todo o conteúdo. */
+    background-image:
+      radial-gradient(900px 520px at 85% -8%, rgb(107 60 240 / 0.20), transparent 62%),
+      radial-gradient(700px 480px at -5% 45%, rgb(185 164 255 / 0.07), transparent 65%);
+    background-attachment: fixed;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: dark; /* controlos nativos (select, scrollbars, calendário) em escuro */
+    scroll-behavior: smooth; /* saltos para âncoras (#bilhetes) deslizam em vez de saltar */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Feedback ao toque: tudo o que se carrega encolhe ligeiramente (como no iOS). */
+  button:not(:disabled),
+  a.chamfer,
+  [role="button"] {
+    transition-property: transform, color, background-color, border-color, opacity, filter;
+    transition-duration: 220ms;
+    transition-timing-function: var(--ease-apple);
+  }
+  button:not(:disabled):active,
+  a.chamfer:active {
+    transform: scale(0.97);
+  }
+  /* Barras de deslocamento (scroll) discretas e finas. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(185 164 255 / 0.3) transparent;
+  }
+  /* Se a pessoa pediu "reduzir movimento", desligamos o deslizar suave e o encolher ao clicar. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    button:not(:disabled):active,
+    a.chamfer:active { transform: none; }
+  }
+  /* Os títulos usam a fonte de títulos e têm as letras ligeiramente mais juntas. */
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+  }
+  /* O contorno que aparece quando navegas com o teclado (Tab) é violeta. */
+  :focus-visible {
+    outline-color: var(--brand-500);
+  }
+  /* Quando selecionas texto com o rato, fica amarelo (cor "faísca") com letras escuras. */
+  ::selection {
+    background: var(--spark);
+    color: var(--brand-950);
+  }
+}

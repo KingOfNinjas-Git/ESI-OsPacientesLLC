@@ -1,0 +1,58 @@
+/*
+ * FICHEIRO: animations.css
+ * Aqui estão as animações feitas só com CSS (as outras, mais complexas, usam a biblioteca "motion").
+ *
+ *   orbit-draw / .planet-line  desenha as linhas do planeta quando um destaque fica ativo
+ *                              (components/animations/planet.tsx)
+ *   orbit-spin / .loader-orbit anel dourado a girar no ecrã de carregamento
+ *                              (components/animations/loading-orbit.tsx)
+ *   page-in / .page-enter      a entrada de cada página (app/template.tsx)
+ *
+ * Todas páram quando o sistema tem "reduzir movimento" ligado (bloco no fim do ficheiro).
+ */
+
+/* As linhas do planeta "desenham-se" quando o destaque fica ativo.
+   O truque: a linha começa "escondida" (dashoffset 1) e vai aparecendo até ficar completa (dashoffset 0). */
+@keyframes orbit-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+/* Faz alguma coisa rodar uma volta completa (360 graus). */
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+/* Estado normal das linhas do planeta: totalmente desenhadas. */
+.planet-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+/* Quando o slide está ativo (data-active="true"), as linhas desenham-se ao longo de 1,4 segundos. */
+[data-active="true"] .planet-line {
+  animation: orbit-draw 1.4s cubic-bezier(0.6, 0, 0.2, 1) both;
+}
+/* Linhas pares e múltiplas de 3 começam um bocadinho mais tarde, para não aparecerem todas ao mesmo tempo. */
+[data-active="true"] .planet-line:nth-child(2n) { animation-delay: 120ms; }
+[data-active="true"] .planet-line:nth-child(3n) { animation-delay: 240ms; }
+/* O anel do ecrã de carregamento roda sem parar, a velocidade constante (uma volta a cada 2,8 s). */
+.loader-orbit {
+  animation: orbit-spin 2.8s linear infinite;
+}
+
+/* A entrada de cada página: aparece e sobe 12px com uma travagem suave no fim. */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.page-enter {
+  animation: page-in 0.55s var(--ease-apple) both;
+}
+/* Se a pessoa pediu "reduzir movimento" ao sistema, desligamos tudo o que se mexe. */
+@media (prefers-reduced-motion: reduce) {
+  [data-active="true"] .planet-line,
+  .loader-orbit {
+    animation: none;
+  }
+  .page-enter {
+    animation-duration: 0.01ms;
+  }
+}

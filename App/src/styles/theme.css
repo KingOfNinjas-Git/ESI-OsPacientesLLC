@@ -1,0 +1,131 @@
+/*
+ * FICHEIRO: theme.css
+ * AS CORES E "TOKENS" DO GAMEHAVEN.
+ *
+ * Para mudar uma cor no site todo, altera-a no bloco `:root` mais abaixo.
+ * O bloco `@theme inline` liga cada variável a classes do Tailwind:
+ *   --brand-900  →  bg-brand-900, text-brand-900, border-brand-900, ...
+ *   --spark      →  bg-spark, text-spark, ...
+ * Também define as cores usadas pelos componentes shadcn (primary, muted, border...).
+ */
+
+/* Parte 1: "traduz" cada variável de cor para uma classe do Tailwind (ex.: bg-brand-500). */
+@theme inline {
+  /* Cores da marca GameHaven. */
+  --color-brand-950: var(--brand-950);
+  --color-brand-900: var(--brand-900);
+  --color-brand-700: var(--brand-700);
+  --color-brand-500: var(--brand-500);
+  --color-brand-300: var(--brand-300);
+  --color-brand-100: var(--brand-100);
+  --color-spark: var(--spark);
+  --color-spark-soft: var(--spark-soft);
+  --color-surface: var(--surface);
+  --color-placeholder: var(--placeholder);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* Tipos de letra: texto normal, código, títulos e "display" (preços, botões). */
+  --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --font-heading: var(--font-chakra), var(--font-onest), sans-serif;
+  --font-display: var(--font-chakra), var(--font-onest), sans-serif;
+  /* Cores da barra lateral (sidebar) do shadcn. */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  /* Cores para gráficos. */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  /* Cores dos componentes shadcn (botões, caixas, campos, avisos...). */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Arredondamento dos cantos, em vários tamanhos, todos calculados a partir de `--radius`. */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Parte 2: os valores verdadeiros das cores. É AQUI que mudas a paleta. */
+:root {
+  /*
+   * GameHaven — paleta derivada das cores do Figma ("Cores"):
+   *   Noite  #18063A (header)   Órbita #250663 (navbar)
+   * O resto são tons da mesma família (violeta/lilás) e um dourado de estrela,
+   * tirado das faíscas do logótipo, usado com moderação.
+   */
+  --brand-950: #18063a;         /* Noite */
+  --brand-900: #250663;         /* Órbita */
+  --brand-700: #3b1496;
+  --brand-500: #6b3cf0;         /* Violeta — foco e estados ativos */
+  --brand-300: #b9a4ff;         /* Lilás — traços sobre fundo escuro */
+  --brand-100: #e9e3fb;
+  --spark: #ffc94d;             /* Faísca — preços, "Novo", CTA principal */
+  --spark-soft: #fff1c9;
+  --surface: #f0edf8;           /* Poeira — fundo da página */
+  --placeholder: #e2dcf2;
+
+  /*
+   * Tema escuro "cinematográfico": o fundo é mais escuro que o cabeçalho (Noite),
+   * as superfícies sobem em claridade (card → popover) e as linhas são brancas
+   * transparentes, por isso funcionam sobre qualquer superfície.
+   */
+  --background: #0d0320;
+  --foreground: #f4f0ff;
+  --card: #170838;
+  --card-foreground: #f4f0ff;
+  --popover: #1d0d47;
+  --popover-foreground: #f4f0ff;
+  --primary: var(--brand-500);
+  --primary-foreground: #ffffff;
+  --secondary: rgb(255 255 255 / 8%);
+  --secondary-foreground: #f4f0ff;
+  --muted: rgb(255 255 255 / 7%);
+  --muted-foreground: #b3a8d8;
+  --accent: rgb(255 255 255 / 10%);
+  --accent-foreground: #f4f0ff;
+  --destructive: #ff6b81;
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 16%);
+  --ring: var(--brand-300);
+  --chart-1: #b9a4ff;
+  --chart-2: #6b3cf0;
+  --chart-3: #b9a4ff;
+  --chart-4: #ffc94d;
+  --chart-5: #6b3cf0;
+  --radius: 0.375rem;
+  --ease-apple: cubic-bezier(0.22, 1, 0.36, 1); /* travagem suave, a de Apple/iOS */
+  --sidebar: var(--brand-950);
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: var(--brand-500);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--brand-900);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: var(--brand-500);
+}
