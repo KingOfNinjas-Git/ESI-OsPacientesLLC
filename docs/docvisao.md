@@ -28,6 +28,7 @@ O _website_ será relevante a:
 
 
 ## Arquitetura de Referência ##
-https://www.figma.com/design/sVD3Yw88PjGL4T1oYGHNZh/Game-Haven?node-id=0-1&t=14KiJfYgbQX8JeHl-1
+<img width="1095" height="495" alt="ArquiteturaReferencia" src="https://github.com/KingOfNinjas-Git/ESI-OsPacientesLLC/blob/main/docs/ArquiteturaReferencia.jpeg" />
+
 
 ## Restrições do Produto ##
